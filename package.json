@@ -1,7 +1,7 @@
 {
   "name": "projet-cours-vue",
-  "version": "0.0.1",
   "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,18 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.18",
-    "vue-router": "^4.5.1",
-    "pinia": "^3.0.3",
+    "@tailwindcss/vite": "^4.1.13",
     "chart.js": "^4.5.0",
-    "vue-chartjs": "^5.3.2"
+    "daisyui": "^5.1.9",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.18",
+    "vue-chartjs": "^5.3.2",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
-    "vite": "^7.1.5",
     "@vitejs/plugin-vue": "^6.0.1",
     "tailwindcss": "^4.1.13",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "daisyui": "^5.1.13"
+    "vite": "^7.1.5"
   }
 }

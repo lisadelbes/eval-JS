@@ -1,62 +1,64 @@
 <template>
   <div class="container mx-auto p-4 md:p-8">
-    <div class="card bg-base-100 shadow-xl rounded-box p-6">
-      <h5 class="text-xl font-semibold mb-4">Page exercice Eval JS CDA Lisa D.</h5>
-      <div class="flex flex-col justify-center items-center">
-        <div class="avatar online">
-          <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+    <div class="card bg-base-100 shadow-2xl rounded-2xl p-8 max-w-lg mx-auto">
+      <h5 class="text-2xl font-bold mb-6 text-center text-primary">Page exercice Eval JS CDA Lisa D.</h5>
+
+      <div class="flex flex-col justify-center items-center gap-6">
+
+        <!-- Avatar animé -->
+        <div class="avatar online transition-transform duration-300 hover:scale-105">
+          <div class="w-28 rounded-full ring ring-primary ring-offset-base-100 ring-offset-4">
             <img :src="imageUser" :alt="nameUser" />
           </div>
         </div>
 
-        <h3 class="text-2xl font-bold mt-4">{{ nameUser }}</h3>
-
-        <input
-          type="text"
-          v-model="nameUser"
-          class="input input-bordered w-full max-w-xs mt-4"
-        />
-
-        <div class="flex flex-row justify-center items-center gap-2 mt-4">
-          <span class="text-lg">
-            Âge :
-            <span class="badge badge-lg badge-primary">{{ ageUser }} ans</span>
-          </span>
+        <!-- Nom -->
+        <div class="flex flex-col items-center gap-2 w-full">
+          <h3 class="text-3xl font-extrabold text-center text-secondary">{{ nameUser }}</h3>
+          <input
+            type="text"
+            v-model="nameUser"
+            placeholder="Modifier le nom"
+            class="input input-bordered w-full max-w-xs mt-2 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
         </div>
 
-        <div class="flex flex-row justify-center items-center mt-3">
-          <span class="text-lg">
-            Âge + 10 :
-            <span class="badge badge-lg badge-secondary">{{ augmenterAge() }} ans</span>
-          </span>
-        </div>
+        <!-- Informations utilisateurs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-center">
 
-        <div class="mt-4">
-          <span class="text-lg">
-            NB Fétiche :
-            <span class="badge badge-lg badge-accent">{{ nombreRandom() }}</span>
-          </span>
+          <!-- Âge -->
+          <div class="p-4 bg-primary/10 rounded-xl shadow-inner flex flex-col items-center">
+            <span class="text-lg font-semibold">Âge</span>
+            <span class="badge badge-lg badge-primary mt-2">{{ ageUser }} ans</span>
+          </div>
+
+          <!-- Âge +10 -->
+          <div class="p-4 bg-secondary/10 rounded-xl shadow-inner flex flex-col items-center">
+            <span class="text-lg font-semibold">Âge +10</span>
+            <span class="badge badge-lg badge-secondary mt-2">{{ augmenterAge() }} ans</span>
+          </div>
+
+          <!-- NB fétiche -->
+          <div class="p-4 bg-accent/10 rounded-xl shadow-inner flex flex-col items-center col-span-full">
+            <span class="text-lg font-semibold">NB Fétiche</span>
+            <span class="badge badge-lg badge-accent mt-2">{{ nombreRandom() }}</span>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Consignes avec barre de progression -->
     <Consignes
-      :id="consignesExo.id"
-      :globalObjective="consignesExo.globalObjective"
-      :stepGoals="consignesExo.stepGoals"
-      @nom="markCompleted(0)"
-      @age="markCompleted(1)"
-      @image="markCompleted(2)"
+      :consignes="consignesExo"
+      @check-step="handleCheckStep"
+      class="mt-8"
     />
-
-    <ActionsConsignes @modification="handleModification" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import Consignes from "../components/dataConsignes.vue";
-import ActionsConsignes from "../components/Consignes.vue";
+import Consignes from "../components/Consignes.vue";
 
 const nameUser = ref("Dr Mario");
 const ageUser = ref(30);
@@ -77,13 +79,4 @@ const consignesExo = ref({
   ]
 });
 
-function markCompleted(index) {
-  consignesExo.value.stepGoals[index].isCompleted = true;
-}
-
-function handleModification(payload) {
-  const index = payload.index;
-  consignesExo.value.stepGoals[index].isCompleted =
-    !consignesExo.value.stepGoals[index].isCompleted;
-}
 </script>
